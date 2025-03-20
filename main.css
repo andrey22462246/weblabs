@@ -1,0 +1,23 @@
+body{
+    background-color: lightblue;
+    color: maroon;
+    font-family: Arial;
+    margin: 0;
+    text-decoration: none;
+}
+header{
+    background-color: black;
+    color: lightgreen; 
+    padding: 20px; 
+    font-size: 16pt;
+}
+footer{
+    background-color: black;
+    color: lightgreen; 
+    padding: 20px; 
+    font-size: 16pt;
+}
+main{
+    color: darkblue; 
+    font-style: italic;
+}
