@@ -16,10 +16,17 @@ footer{
     color: lightgreen; 
     padding: 20px; 
     font-size: 16pt;
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
 }
 main{
     color: darkblue; 
     font-style: italic;
+    margin: 10px 20px 65px;
+    
 }
 a {
     color: green;
