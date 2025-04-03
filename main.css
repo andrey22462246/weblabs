@@ -24,6 +24,7 @@ main{
 a {
     color: green;
     text-decoration: none;
+    transition: 1s 2s;
 }
 a:link{
     color: green;
@@ -37,6 +38,7 @@ a:hover {
     color: red;
     text-decoration: underline;
     background-color: brown !important;
+    transition: 0.3s;
 }
 a:active{
     color:black;
