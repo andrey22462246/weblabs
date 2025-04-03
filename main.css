@@ -21,3 +21,25 @@ main{
     color: darkblue; 
     font-style: italic;
 }
+a {
+    color: green;
+    text-decoration: none;
+}
+a:link{
+    color: green;
+    text-decoration: none;
+}
+a:visited{
+    color:black;
+    text-decoration: underline !important;
+}
+a:hover {
+    color: red;
+    text-decoration: underline;
+    background-color: brown !important;
+}
+a:active{
+    color:black;
+    opacity: 0.3;
+}
+
