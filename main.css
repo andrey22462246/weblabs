@@ -63,4 +63,17 @@ div.menu:hover{
     background-color: #ffffff30;
     box-shadow: 0 0 15px #00000030;
 }
+.comic-container .oblako1,
+.comic-container .oblako2,
+.comic-container .oblako3,
+.comic-container .oblako4 {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
 
+.comic-container:hover .oblako1,
+.comic-container:hover .oblako2,
+.comic-container:hover .oblako3,
+.comic-container:hover .oblako4 {
+    opacity: 1;
+}
