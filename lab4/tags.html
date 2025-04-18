@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Лабораторная 4</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        main {
+            position: relative;
+            height: calc(100vh - 130px);
+            overflow: hidden;
+        }
+
+        
+        .tag {
+            position: absolute;
+            padding: 12px 25px;
+            font-family: Arial, sans-serif;
+            font-size: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1;
+            text-transform: capitalize;
+            color: black;
+            border-radius: 12px; 
+        }
+
+        
+        .tag:hover {
+            transform: scale(1.3) rotate(0deg) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        
+        .tag1  { top: 40px;   left: 50px;   font-size: 36px; background-color: #ffb3ba; transform: rotate(-10deg); }
+        .tag2  { top: 120px;  left: 200px;  font-size: 32px; background-color: #ffdfba; transform: rotate(5deg); }
+        .tag3  { top: 200px;  left: 100px;  font-size: 34px; background-color: #ffffba; transform: rotate(-4deg); }
+        .tag4  { top: 280px;  left: 250px;  font-size: 38px; background-color: #baffc9; transform: rotate(12deg); }
+        .tag5  { top: 360px;  left: 150px;  font-size: 35px; background-color: #bae1ff; transform: rotate(-8deg); }
+        .tag6  { top: 80px;   left: 400px;  font-size: 40px; background-color: #dabfff; transform: rotate(7deg); }
+        .tag7  { top: 170px;  left: 500px;  font-size: 33px; background-color: #ffc9de; transform: rotate(-6deg); }
+        .tag8  { top: 250px;  left: 380px;  font-size: 31px; background-color: #ffd6a5; transform: rotate(14deg); }
+        .tag9  { top: 330px;  left: 460px;  font-size: 37px; background-color: #caffbf; transform: rotate(-12deg); }
+        .tag10 { top: 410px;  left: 350px;  font-size: 36px; background-color: #9bf6ff; transform: rotate(3deg); }
+        .tag11 { top: 100px;  left: 600px;  font-size: 32px; background-color: #a0c4ff; transform: rotate(-9deg); }
+        .tag12 { top: 190px;  left: 700px;  font-size: 34px; background-color: #bdb2ff; transform: rotate(11deg); }
+        .tag13 { top: 270px;  left: 620px;  font-size: 30px; background-color: #ffc6ff; transform: rotate(-5deg); }
+        .tag14 { top: 350px;  left: 720px;  font-size: 33px; background-color: #fffffc; transform: rotate(10deg); }
+        .tag15 { top: 430px;  left: 580px;  font-size: 35px; background-color: #ffe066; transform: rotate(-7deg); }
+
+        
+        .tag16 { top: 60px;   right: 50px;   font-size: 36px; background-color: #ffb3ba; transform: rotate(10deg); }
+        .tag17 { top: 150px;  right: 200px;  font-size: 32px; background-color: #ffdfba; transform: rotate(-5deg); }
+        .tag18 { top: 220px;  right: 100px;  font-size: 34px; background-color: #ffffba; transform: rotate(6deg); }
+        .tag19 { top: 300px;  right: 250px;  font-size: 38px; background-color: #baffc9; transform: rotate(-8deg); }
+        .tag20 { top: 380px;  right: 150px;  font-size: 35px; background-color: #bae1ff; transform: rotate(4deg); }
+        .tag21 { top: 100px;  right: 400px;  font-size: 40px; background-color: #dabfff; transform: rotate(-12deg); }
+        .tag22 { top: 190px;  right: 500px;  font-size: 33px; background-color: #ffc9de; transform: rotate(7deg); }
+        .tag23 { top: 270px;  right: 380px;  font-size: 31px; background-color: #ffd6a5; transform: rotate(-4deg); }
+        .tag24 { top: 350px;  right: 460px;  font-size: 37px; background-color: #caffbf; transform: rotate(2deg); }
+        .tag25 { top: 430px;  right: 350px;  font-size: 36px; background-color: #9bf6ff; transform: rotate(9deg); }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        НГТУ, ФБ, Лабораторная работа 4
+    </header>
+
+    <main>
+        <div class="tag tag1">margin</div>
+        <div class="tag tag2">padding</div>
+        <div class="tag tag3">border</div>
+        <div class="tag tag4">overflow</div>
+        <div class="tag tag5">display</div>
+        <div class="tag tag6">position</div>
+        <div class="tag tag7">flexbox</div>
+        <div class="tag tag8">grid</div>
+        <div class="tag tag9">box-shadow</div>
+        <div class="tag tag10">text-align</div>
+        <div class="tag tag11">font-size</div>
+        <div class="tag tag12">color</div>
+        <div class="tag tag13">background-color</div>
+        <div class="tag tag14">z-index</div>
+        <div class="tag tag15">transform</div>
+        <div class="tag tag16">opacity</div>
+        <div class="tag tag17">visibility</div>
+        <div class="tag tag18">position</div>
+        <div class="tag tag19">transition</div>
+        <div class="tag tag20">animation</div>
+        <div class="tag tag21">float</div>
+        <div class="tag tag22">clear</div>
+        <div class="tag tag23">white-space</div>
+        <div class="tag tag24">cursor</div>
+        <div class="tag tag25">filter</div>
+    </main>
+
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+
+</body>
+</html>
