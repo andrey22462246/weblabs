@@ -9,9 +9,25 @@
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        function showSum() {
+            let a=5154;
+            let b=7891;
+            let result = a+b;
+            alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
+        }
+    </script>
     <style>
-        message{
-            
+        .message{
+            cursor: pointer;
+            width: 300px;
+            height: 100px;
+            background-color: #f0f8ff; 
+            border: 2px solid #4682b4; 
+            display: inline-block;
+            padding: 10px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -20,7 +36,7 @@
         НГТУ, ФБ, Лабораторная работа 5
     </header>
     <main>
-        <div class="message">Сколько будет 5154+7891?</div>
+        <div class="message" onclick="showSum()">Сколько будет 5154+7891?</div>
         <div class="message">Узнать, кто автор страницы.</div>    
     </main>
     <footer>
