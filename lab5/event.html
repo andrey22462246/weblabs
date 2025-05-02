@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Ивент</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        div {
+            width: 200px;
+            height: 150px;
+            border: 2px solid black;  
+            background-color: lightblue; 
+            cursor: crosshair; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+
+        
+        .ctrlPressed {
+            background-color: red;
+            border: 2px solid darkred;
+        }
+
+        .altPressed {
+            background-color: yellow;
+            border: 2px solid orange;
+        }
+
+        .shiftPressed {
+            background-color: green;
+            border: 2px solid darkgreen;
+        }
+    </style>
+    <script>
+        function showCoords(event) {
+            let x = event.offsetX;
+            let y = event.offsetY;
+            let div = document.getElementById('block');
+
+            
+            div.innerHTML = `<b>x</b> = ${x}px<br><b>y</b> = ${y}px`;
+
+            
+            if (event.ctrlKey) {
+                div.style.color = 'black';
+                div.classList.add('ctrlPressed');
+                div.classList.remove('altPressed', 'shiftPressed');
+                div.innerHTML += '<br><i>Нажата клавиша Ctrl</i>';
+            } else if (event.altKey) {
+                div.style.color = 'black';
+                div.classList.add('altPressed');
+                div.classList.remove('ctrlPressed', 'shiftPressed');
+                div.innerHTML += '<br><i>Нажата клавиша Alt</i>';
+            } else if (event.shiftKey) {
+                div.style.color = 'black';
+                div.classList.add('shiftPressed');
+                div.classList.remove('ctrlPressed', 'altPressed');
+                div.innerHTML += '<br><i>Нажата клавиша Shift</i>';
+            } else {
+                div.style.color = 'black';
+                div.classList.remove('ctrlPressed', 'altPressed', 'shiftPressed');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+    <main>
+        
+        <div id="block" onmousemove="showCoords(event)">
+            <div id="coords">Координаты: (x: 0, y: 0)</div>
+        </div>
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
