@@ -120,6 +120,15 @@
             let result = a**b;
             alert(a + ' ** ' + b + ' = ' + result);
         }
+        function changeOutput(buttonNum, backColor, textColor, borderStyle, borderRadius, borderWidth){
+            let output = document.getElementById('output');
+            output.innerHTML = 'Нажата кнопка ' + buttonNum;
+            output.style.background = backColor;
+            output.style.color = textColor;
+            output.style.borderStyle = borderStyle;
+            output.style.borderRadius = borderRadius;
+            output.style.borderWidth = borderWidth;
+        }
     </script>
     <style>
         .message{
@@ -132,6 +141,11 @@
             padding: 10px;
             font-family: Arial, sans-serif;
             box-sizing: border-box;
+        }
+        #output {
+            border: 1px solid;
+            width: 300px;
+            height: 40px;
         }
     </style>
 </head>
@@ -147,7 +161,14 @@
         <div class="message" onclick="showSub()">Найти разность чисел</div>
         <div class="message" onclick="showDiv()">Найти отношение чисел</div>
         <div class="message" onclick="showSup()">Найти возведение в степень чисел</div>
-        <div class="message" onclick="showAuthor()">Узнать, кто автор страницы.</div>    
+        <div class="message" onclick="showAuthor()">Узнать, кто автор страницы.</div>  
+        <div>
+            <input type="button" value="Кнопка 1" onclick="changeOutput(1, 'red', 'yellow', 'dashed', '15px', '2px')">
+            <input type="button" value="Кнопка 2" onclick="changeOutput(2, 'black', 'lime', 'solid', '8px', '8px')">
+            <input type="button" value="Кнопка 3" onclick="changeOutput(3, 'blue', 'white', 'dotted', '10px', '1px')">
+            <input type="button" value="Кнопка 4" onclick="changeOutput(4, 'yellow', 'orange', 'none', '2px', '10px')">
+        </div>  
+        <div id="output"></div>
     </main>
     <footer ondblclick="showHello()" style="cursor: pointer;">
         &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
