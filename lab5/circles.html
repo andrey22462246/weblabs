@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Круги</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background: #f0f0f0;
+          height: 100vh;
+          overflow: hidden;
+          position: relative;
+        }
+    
+        .circle {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: #fff;
+          cursor: pointer;
+          transition: transform 0.6s ease, opacity 0.6s ease;
+        }
+    
+        .hidden {
+          opacity: 0;
+          transform: scale(0);
+        }
+    
+        #resetButton {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 10px 20px;
+          font-size: 16px;
+          z-index: 999;
+          cursor: pointer;
+        }
+    </style>
+    
+      
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+          const colors = [
+            '#e74c3c', '#2ecc71', '#3498db', '#f1c40f', '#9b59b6',
+            '#1abc9c', '#e67e22', '#34495e', '#ff6b6b', '#27ae60'
+          ];
+    
+          const circles = [];
+    
+          for (let i = 0; i < 10; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.textContent = i + 1;
+            circle.style.backgroundColor = colors[i];
+    
+            const maxX = window.innerWidth - 80;
+            const maxY = window.innerHeight - 80;
+            circle.style.left = Math.random() * maxX + 'px';
+            circle.style.top = Math.random() * maxY + 'px';
+    
+            circle.addEventListener('click', () => {
+              circle.classList.add('hidden');
+            });
+    
+            document.body.appendChild(circle);
+            circles.push(circle);
+          }
+    
+          document.getElementById('resetButton').addEventListener('click', () => {
+            circles.forEach(circle => {
+              circle.classList.remove('hidden');
+            });
+          });
+        });
+    </script>
+        
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+    <main>
+        <button id="resetButton">Показать все круги</button>
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
