@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Лабораторная 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        function showMultipleTable() {
+            let tbl = document.getElementById('mtable');
+            let multiplier = parseInt(document.getElementById('multiplier').value) || 7;
+            let start = parseInt(document.getElementById('start').value) || 1;
+            let end = parseInt(document.getElementById('end').value) || 10;
+            
+            
+            if (start > end) {
+                [start, end] = [end, start]; 
+            }
+            
+            tbl.innerHTML = `<h1>Таблица умножения на ${multiplier}</h1>`;
+            
+            for (let i = start; i <= end; i++) {
+                let s = `<div>${i} × ${multiplier} = ${i * multiplier}</div>`;
+                tbl.innerHTML += s;
+            }
+        }
+        window.onload = showMultipleTable;
+    </script>
+    <style>
+        
+    
+    </style>
+</head>
+<body onload = "showMutipleTable()">
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+    </header>
+    <main>
+        <div id="mtable"></div>
+        <div>
+           <label>Умножить на: <input type="number" id="multiplier" value="7"><br>
+           <label>Начать с: <input type="number" id="start" value="1"><br>
+           <label>Закончить на: <input type="number" id="end" value="10"></label><br>
+           <button onclick="showMultipleTable()">Таблица</button>
+        </div>
+
+            
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
