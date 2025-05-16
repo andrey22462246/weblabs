@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Диаграмма</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        #diag {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 400px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            gap: 15px;
+        }
+        
+        .bar {
+            width: 40px;
+            background-color: #4285F4;
+            border: 1px solid black;
+            transition: height 0.3s ease;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .bar-value {
+            margin-top: auto;
+            padding: 5px 0;
+        }
+    </style>
+     <script>
+        function showDiagram() {
+            let data = [36, 86, 45, 44, 69, 28, 32, 91, 26, 11];
+            let colors = ['red', 'blue', 'gray', 'green', 'pink', 
+                         'darkyellow', 'black', 'purple', 'orange', 'lime'];
+            
+            const diag = document.getElementById('diag');
+            const diagHeight = diag.clientHeight - 30; // 30px для подписей
+            const maxData = Math.max(...data);
+            const k = diagHeight / maxData * 0.9;
+            
+            // Очищаем диаграмму перед созданием столбцов
+            diag.innerHTML = '';
+            
+            // Создаем столбцы
+            for(let i = 0; i < data.length; i++) {
+                const barHeight = k * data[i];
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = barHeight + 'px';
+                bar.style.backgroundColor = colors[i];
+                
+                // Добавляем подпись значения
+                const valueLabel = document.createElement('div');
+                valueLabel.className = 'bar-value';
+                valueLabel.textContent = data[i];
+                
+                bar.appendChild(valueLabel);
+                diag.appendChild(bar);
+            }
+        }
+        
+        // Вызываем функцию при загрузке страницы
+        window.onload = showDiagram;
+            
+        
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 6
+    </header>
+    <main>
+        <div id="diag">
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+            <div class="bar"><span class="bar-value"></span></div>
+        </div>
+            
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
