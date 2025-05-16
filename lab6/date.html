@@ -11,11 +11,11 @@
     <link rel="icon" href="../favicon-32x32.png">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        // Глобальные переменные для таймеров
+        
         let colorInterval = null;
         let timeInterval = null;
 
-        // Элементы страницы
+        
         const header = document.getElementById('main-header');
         const currentDateElement = document.getElementById('current-date');
         const startColorBtn = document.getElementById('start-color');
@@ -23,7 +23,7 @@
         const startTimeBtn = document.getElementById('start-time');
         const stopTimeBtn = document.getElementById('stop-time');
             
-        // Функция изменения цвета заголовка
+        
         function changeHeaderColor() {
             const r = Math.floor(Math.random() * 256);
             const g = Math.floor(Math.random() * 256);
@@ -32,7 +32,7 @@
             console.log('Цвет изменен:', `rgb(${r}, ${g}, ${b})`);
         }
 
-        // Функция обновления даты и времени
+        
         function updateDateTime() {
             const now = new Date();
             currentDateElement.textContent = now.toLocaleString('ru-RU', {
@@ -47,16 +47,16 @@
             console.log('Время обновлено:', currentDateElement.textContent);
         }
 
-        // Инициализация времени при загрузке
+        
         updateDateTime();
 
-        // Обработчики кнопок для цвета
+        
         startColorBtn.addEventListener('click', function() {
             if (!colorInterval) {
-                changeHeaderColor(); // Сразу меняем цвет
-                colorInterval = setInterval(changeHeaderColor, 1000); // Затем каждую секунду
+                changeHeaderColor(); 
+                colorInterval = setInterval(changeHeaderColor, 1000); 
                     
-                // Блокируем/разблокируем кнопки
+                
                 startColorBtn.disabled = true;
                 stopColorBtn.disabled = false;
                 console.log('Таймер цвета запущен');
@@ -68,20 +68,20 @@
                 clearInterval(colorInterval);
                 colorInterval = null;
                     
-                // Блокируем/разблокируем кнопки
+                
                 stopColorBtn.disabled = true;
                 startColorBtn.disabled = false;
                 console.log('Таймер цвета остановлен');
             }
         });
 
-        // Обработчики кнопок для времени
+        
         startTimeBtn.addEventListener('click', function() {
             if (!timeInterval) {
-                updateDateTime(); // Сразу обновляем время
-                timeInterval = setInterval(updateDateTime, 1000); // Затем каждую секунду
+                updateDateTime(); 
+                timeInterval = setInterval(updateDateTime, 1000); 
                     
-                // Блокируем/разблокируем кнопки
+                
                 startTimeBtn.disabled = true;
                 stopTimeBtn.disabled = false;
                 console.log('Таймер времени запущен');
@@ -93,7 +93,7 @@
                 clearInterval(timeInterval);
                 timeInterval = null;
                     
-                // Блокируем/разблокируем кнопки
+                
                 stopTimeBtn.disabled = true;
                 startTimeBtn.disabled = false;
                 console.log('Таймер времени остановлен');
