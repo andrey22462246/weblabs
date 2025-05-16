@@ -4,19 +4,84 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Шкуропатов Андрей Александрович. Лабораторная 6</title>
+    <title>Шкуропатов Андрей Александрович. Даты</title>
     <link rel="stylesheet" href="../main.css">
     <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
-    <script></script>
+    <script>
+        const countries = [
+            { name: "Россия", locale: "ru-RU" },
+            { name: "США", locale: "en-US" },
+            { name: "Германия", locale: "de-DE" },
+            { name: "Япония", locale: "ja-JP" },
+            { name: "Франция", locale: "fr-FR" },
+            { name: "Китай", locale: "zh-CN" }
+        ];
+
+        
+        function formatDate(date, locale) {
+            return date.toLocaleDateString(locale, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+       
+        function showDates() {
+            const now = new Date();
+            const container = document.getElementById('date-container');
+            
+            countries.forEach(country => {
+                const countryElement = document.createElement('div');
+                countryElement.className = 'country';
+                
+                const nameElement = document.createElement('div');
+                nameElement.className = 'country-name';
+                nameElement.textContent = country.name;
+                
+                const dateElement = document.createElement('div');
+                dateElement.textContent = formatDate(now, country.locale);
+                
+                countryElement.appendChild(nameElement);
+                countryElement.appendChild(dateElement);
+                container.appendChild(countryElement);
+            });
+        }
+
+        
+        window.onload = showDates;
+    </script>
+    <style>
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .country {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .country-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+    </style>
 </head>
-<body onload="showDate()">
+<body>
     <header>
         НГТУ, ФБ, Лабораторная работа 6
     </header>
     <main>
-        <div id="current-date"></div>
+        <h1>Текущая дата в разных странах</h1>
+    
+        <div id="date-container"></div>
             
     </main>
     <footer>
