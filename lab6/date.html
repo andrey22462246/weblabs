@@ -10,96 +10,69 @@
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        
-        let colorInterval = null;
-        let timeInterval = null;
-
-        
-        const header = document.getElementById('main-header');
-        const currentDateElement = document.getElementById('current-date');
-        const startColorBtn = document.getElementById('start-color');
-        const stopColorBtn = document.getElementById('stop-color');
-        const startTimeBtn = document.getElementById('start-time');
-        const stopTimeBtn = document.getElementById('stop-time');
-            
-        
-        function changeHeaderColor() {
+        let colorTimer;
+        let timeTimer;
+    
+        function showDate() {
+            let out = document.getElementById('current-date');
+            let today = new Date();
+            out.innerHTML = today.toLocaleString('ru-RU');
+    
+            document.getElementById('locale-dates').innerHTML =
+                "Дата и время для русской локали: " + today.toLocaleString('ru-RU') + "<br>" +
+                "Дата и время для локали США: " + today.toLocaleString('en-US') + "<br>" +
+                "Дата и время для локали Испании: " + today.toLocaleString('es-ES') + "<br>" +
+                "Дата и время для локали Франции: " + today.toLocaleString('fr-FR') + "<br>" +
+                "Дата и время для локали Италии: " + today.toLocaleString('it-IT') + "<br>" +
+                "Дата и время для локали Турции: " + today.toLocaleString('tr-TR') + "<br>";
+        }
+    
+        function changeColors() {
+            const header = document.getElementsByTagName('header')[0];
             const r = Math.floor(Math.random() * 256);
             const g = Math.floor(Math.random() * 256);
             const b = Math.floor(Math.random() * 256);
             header.style.color = `rgb(${r}, ${g}, ${b})`;
-            console.log('Цвет изменен:', `rgb(${r}, ${g}, ${b})`);
         }
-
-        
-        function updateDateTime() {
-            const now = new Date();
-            currentDateElement.textContent = now.toLocaleString('ru-RU', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            console.log('Время обновлено:', currentDateElement.textContent);
+    
+        function startChangeColors() {
+            if (!colorTimer) {
+                changeColors();
+                colorTimer = setInterval(changeColors, 1000);
+                document.getElementById('start-btn').disabled = true;
+                document.getElementById('stop-btn').disabled = false;
+            }
         }
-
+    
+        function stopChangeColors() {
+            if (colorTimer) {
+                clearInterval(colorTimer);
+                colorTimer = null;
+                document.getElementById('start-btn').disabled = false;
+                document.getElementById('stop-btn').disabled = true;
+            }
+        }
+    
+        function startUpdatingTime() {
+            if (!timeTimer) {
+                showDate();
+                timeTimer = setInterval(showDate, 1000);
+                document.getElementById('start-time-btn').disabled = true;
+                document.getElementById('stop-time-btn').disabled = false;
+            }
+        }
+    
+        function stopUpdatingTime() {
+            if (timeTimer) {
+                clearInterval(timeTimer);
+                timeTimer = null;
+                document.getElementById('start-time-btn').disabled = false;
+                document.getElementById('stop-time-btn').disabled = true;
+            }
+        }
+    
         
-        updateDateTime();
-
-        
-        startColorBtn.addEventListener('click', function() {
-            if (!colorInterval) {
-                changeHeaderColor(); 
-                colorInterval = setInterval(changeHeaderColor, 1000); 
-                    
-                
-                startColorBtn.disabled = true;
-                stopColorBtn.disabled = false;
-                console.log('Таймер цвета запущен');
-            }
-        });
-
-        stopColorBtn.addEventListener('click', function() {
-            if (colorInterval) {
-                clearInterval(colorInterval);
-                colorInterval = null;
-                    
-                
-                stopColorBtn.disabled = true;
-                startColorBtn.disabled = false;
-                console.log('Таймер цвета остановлен');
-            }
-        });
-
-        
-        startTimeBtn.addEventListener('click', function() {
-            if (!timeInterval) {
-                updateDateTime(); 
-                timeInterval = setInterval(updateDateTime, 1000); 
-                    
-                
-                startTimeBtn.disabled = true;
-                stopTimeBtn.disabled = false;
-                console.log('Таймер времени запущен');
-            }
-        });
-
-        stopTimeBtn.addEventListener('click', function() {
-            if (timeInterval) {
-                clearInterval(timeInterval);
-                timeInterval = null;
-                    
-                
-                stopTimeBtn.disabled = true;
-                startTimeBtn.disabled = false;
-                console.log('Таймер времени остановлен');
-            }
-        });
-        });
+        window.onload = showDate;
     </script>
     <style>
         header {
@@ -145,14 +118,17 @@
         <h1>Таймеры и работа с датой</h1>
     </header>
     <main>
-        <div class="controls">
-            <button id="start-color">Старт (цвет)</button>
-            <button id="stop-color" disabled>Стоп (цвет)</button>
-            <button id="start-time">Обновлять время</button>
-            <button id="stop-time" disabled>Остановить время</button>
+        <h2>Дата и Время</h2>
+        <div id="current-date"></div>  
+        <div id="locale-dates"></div> 
+        <div>
+            <button id="start-btn" onclick="startChangeColors()">Старт</button>
+            <button id="stop-btn" onclick="stopChangeColors()" disabled>Стоп</button>
         </div>
-    
-        <div id="current-date"></div>
+        <div>
+            <button id="start-time-btn" onclick="startUpdatingTime()">Обновить время</button>
+            <button id="stop-time-btn" onclick="stopUpdatingTime()" disabled>Остановить обновление времени</button>
+        </div>
     </main>
     <footer>
         &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
