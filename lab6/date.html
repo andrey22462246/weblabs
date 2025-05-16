@@ -10,79 +10,149 @@
     <link rel="icon" href="../favicon-16x16.png">
     <link rel="icon" href="../favicon-32x32.png">
     <script>
-        const countries = [
-            { name: "Россия", locale: "ru-RU" },
-            { name: "США", locale: "en-US" },
-            { name: "Германия", locale: "de-DE" },
-            { name: "Япония", locale: "ja-JP" },
-            { name: "Франция", locale: "fr-FR" },
-            { name: "Китай", locale: "zh-CN" }
-        ];
+        document.addEventListener('DOMContentLoaded', function() {
+        // Глобальные переменные для таймеров
+        let colorInterval = null;
+        let timeInterval = null;
 
-        
-        function formatDate(date, locale) {
-            return date.toLocaleDateString(locale, {
+        // Элементы страницы
+        const header = document.getElementById('main-header');
+        const currentDateElement = document.getElementById('current-date');
+        const startColorBtn = document.getElementById('start-color');
+        const stopColorBtn = document.getElementById('stop-color');
+        const startTimeBtn = document.getElementById('start-time');
+        const stopTimeBtn = document.getElementById('stop-time');
+            
+        // Функция изменения цвета заголовка
+        function changeHeaderColor() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            header.style.color = `rgb(${r}, ${g}, ${b})`;
+            console.log('Цвет изменен:', `rgb(${r}, ${g}, ${b})`);
+        }
+
+        // Функция обновления даты и времени
+        function updateDateTime() {
+            const now = new Date();
+            currentDateElement.textContent = now.toLocaleString('ru-RU', {
                 weekday: 'long',
                 year: 'numeric',
                 month: 'long',
-                day: 'numeric'
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
             });
+            console.log('Время обновлено:', currentDateElement.textContent);
         }
 
-       
-        function showDates() {
-            const now = new Date();
-            const container = document.getElementById('date-container');
-            
-            countries.forEach(country => {
-                const countryElement = document.createElement('div');
-                countryElement.className = 'country';
-                
-                const nameElement = document.createElement('div');
-                nameElement.className = 'country-name';
-                nameElement.textContent = country.name;
-                
-                const dateElement = document.createElement('div');
-                dateElement.textContent = formatDate(now, country.locale);
-                
-                countryElement.appendChild(nameElement);
-                countryElement.appendChild(dateElement);
-                container.appendChild(countryElement);
-            });
-        }
+        // Инициализация времени при загрузке
+        updateDateTime();
 
-        
-        window.onload = showDates;
+        // Обработчики кнопок для цвета
+        startColorBtn.addEventListener('click', function() {
+            if (!colorInterval) {
+                changeHeaderColor(); // Сразу меняем цвет
+                colorInterval = setInterval(changeHeaderColor, 1000); // Затем каждую секунду
+                    
+                // Блокируем/разблокируем кнопки
+                startColorBtn.disabled = true;
+                stopColorBtn.disabled = false;
+                console.log('Таймер цвета запущен');
+            }
+        });
+
+        stopColorBtn.addEventListener('click', function() {
+            if (colorInterval) {
+                clearInterval(colorInterval);
+                colorInterval = null;
+                    
+                // Блокируем/разблокируем кнопки
+                stopColorBtn.disabled = true;
+                startColorBtn.disabled = false;
+                console.log('Таймер цвета остановлен');
+            }
+        });
+
+        // Обработчики кнопок для времени
+        startTimeBtn.addEventListener('click', function() {
+            if (!timeInterval) {
+                updateDateTime(); // Сразу обновляем время
+                timeInterval = setInterval(updateDateTime, 1000); // Затем каждую секунду
+                    
+                // Блокируем/разблокируем кнопки
+                startTimeBtn.disabled = true;
+                stopTimeBtn.disabled = false;
+                console.log('Таймер времени запущен');
+            }
+        });
+
+        stopTimeBtn.addEventListener('click', function() {
+            if (timeInterval) {
+                clearInterval(timeInterval);
+                timeInterval = null;
+                    
+                // Блокируем/разблокируем кнопки
+                stopTimeBtn.disabled = true;
+                startTimeBtn.disabled = false;
+                console.log('Таймер времени остановлен');
+            }
+        });
+        });
     </script>
     <style>
-        h1 {
-            color: #2c3e50;
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
             text-align: center;
+            margin-bottom: 20px;
+            transition: color 0.5s ease;
         }
-        .country {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .country-name {
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
+        button {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        #current-date {
             font-size: 18px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <header>
-        НГТУ, ФБ, Лабораторная работа 6
+    <header id="main-header">
+        <h1>Таймеры и работа с датой</h1>
     </header>
     <main>
-        <h1>Текущая дата в разных странах</h1>
+        <div class="controls">
+            <button id="start-color">Старт (цвет)</button>
+            <button id="stop-color" disabled>Стоп (цвет)</button>
+            <button id="start-time">Обновлять время</button>
+            <button id="stop-time" disabled>Остановить время</button>
+        </div>
     
-        <div id="date-container"></div>
-            
+        <div id="current-date"></div>
     </main>
     <footer>
         &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
