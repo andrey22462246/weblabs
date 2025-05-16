@@ -45,14 +45,14 @@
                          'darkyellow', 'black', 'purple', 'orange', 'lime'];
             
             const diag = document.getElementById('diag');
-            const diagHeight = diag.clientHeight - 30; // 30px для подписей
+            const diagHeight = diag.clientHeight - 30; 
             const maxData = Math.max(...data);
             const k = diagHeight / maxData * 0.9;
             
-            // Очищаем диаграмму перед созданием столбцов
+            
             diag.innerHTML = '';
             
-            // Создаем столбцы
+            
             for(let i = 0; i < data.length; i++) {
                 const barHeight = k * data[i];
                 const bar = document.createElement('div');
@@ -60,7 +60,7 @@
                 bar.style.height = barHeight + 'px';
                 bar.style.backgroundColor = colors[i];
                 
-                // Добавляем подпись значения
+                
                 const valueLabel = document.createElement('div');
                 valueLabel.className = 'bar-value';
                 valueLabel.textContent = data[i];
@@ -70,7 +70,7 @@
             }
         }
         
-        // Вызываем функцию при загрузке страницы
+        
         window.onload = showDiagram;
             
         
