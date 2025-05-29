@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Лабораторная 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        .positive {
+            color: green;
+        }
+        .negative {
+            color: red;
+        }
+    </style>
+    <script>
+        function showStocks() {
+            const dates = [
+                "2023-01-01", "2023-01-02", "2023-01-03", "2023-01-04", "2023-01-05",
+                "2023-01-06", "2023-01-07", "2023-01-08", "2023-01-09", "2023-01-10"
+            ];
+            const prices = [
+                110.98, 114.34, 108.26, 108.40, 114.82,
+                118.04, 121.90, 127.10, 129.22, 130.00
+            ];
+            
+            let table = document.getElementById('stocks-table');
+            
+            
+            table.innerHTML = '<tr><th>Дата</th><th>Цена</th><th>Разница</th></tr>';
+            
+            for(let i = 0; i < prices.length; i++) {
+                let tr = document.createElement('tr');
+                
+                
+                let tdDate = document.createElement('td');
+                tdDate.innerText = dates[i];
+                tr.appendChild(tdDate);
+                
+                
+                let tdPrice = document.createElement('td');
+                tdPrice.innerText = prices[i].toFixed(2);
+                tr.appendChild(tdPrice);
+                
+                
+                let tdDiff = document.createElement('td');
+                if(i > 0) {
+                    let diff = prices[i] - prices[i-1];
+                    tdDiff.innerText = diff.toFixed(2);
+                    
+                    if(diff > 0) {
+                        tdDiff.className = 'positive';
+                    } else if(diff < 0) {
+                        tdDiff.className = 'negative';
+                    }
+                } else {
+                    tdDiff.innerText = '-';
+                }
+                tr.appendChild(tdDiff);
+                
+                table.appendChild(tr);
+            }
+            
+            
+            let sum = prices.reduce((a, b) => a + b, 0);
+            let average = sum / prices.length;
+            let max = Math.max(...prices);
+            let min = Math.min(...prices);
+            
+            document.getElementById('stocks-stats').innerHTML = `
+                <p><strong>Средняя цена:</strong> ${average.toFixed(2)}</p>
+                <p><strong>Максимальная цена:</strong> ${max.toFixed(2)}</p>
+                <p><strong>Минимальная цена:</strong> ${min.toFixed(2)}</p>
+            `;
+            
+            document.querySelector('button[onclick="showStocks()"]').style.display = 'none';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+    <main>
+        <div style="margin-top: 20px;">
+            <button onclick="showStocks()">Курс акций XXX</button>
+            <table border="1" id="stocks-table"></table>
+            <div id="stocks-stats"></div>
+        </div>
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
