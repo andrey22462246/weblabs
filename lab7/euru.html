@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Лабораторная 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <style>
+        .exchange-info {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            border: 2px solid #4a76a8;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .exchange-info h2 {
+            color: #4a76a8;
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        .rate {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .date {
+            font-style: italic;
+            color: #666;
+        }
+        
+        .difference {
+            font-weight: bold;
+        }
+        
+        .up {
+            color: green;
+        }
+        
+        .down {
+            color: red;
+        }
+        
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .attribution {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #999;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            getEuroExchangeRate();
+        });
+        
+        function getEuroExchangeRate() {
+            const url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+            
+            fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+                    displayExchangeData(data);
+                })
+                .catch(function(error) {
+                    console.error('Ошибка при получении данных:', error);
+                    document.getElementById('loading').textContent = 'Не удалось загрузить данные. Пожалуйста, попробуйте позже.';
+                });
+        }
+        
+        function displayExchangeData(data) {
+            const eurData = data.Valute.EUR;
+            const currentRate = eurData.Value.toFixed(2);
+            const previousRate = eurData.Previous.toFixed(2);
+            const difference = (eurData.Value - eurData.Previous).toFixed(2);
+            const isUp = parseFloat(difference) >= 0;
+            
+            document.getElementById('current-rate').textContent = currentRate;
+            document.getElementById('previous-rate').textContent = previousRate;
+            document.getElementById('current-date').textContent = new Date(data.Date).toLocaleString('ru-RU');
+            
+            const differenceElement = document.getElementById('difference');
+            differenceElement.textContent = Math.abs(difference);
+            differenceElement.className = isUp ? 'difference up' : 'difference down';
+            
+            document.getElementById('direction').textContent = isUp ? 'рост' : 'падение';
+            document.getElementById('direction').className = isUp ? 'up' : 'down';
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+    <main>
+        <div class="exchange-info">
+            <h2>Курс евро ЦБ РФ</h2>
+            <div id="loading" class="loading">Загрузка данных...</div>
+            <div id="content" style="display: none;">
+                <div class="rate">Текущий курс: <span id="current-rate"></span> руб.</div>
+                <div class="details">
+                    <div class="date">Дата: <span id="current-date"></span></div>
+                    <div>Предыдущий курс: <span id="previous-rate"></span> руб.</div>
+                    <div>Изменение: 
+                        <span id="difference" class="difference"></span> 
+                        (<span id="direction"></span>)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="attribution">
+            Данные предоставлены <a href="https://www.cbr-xml-daily.ru/" target="_blank">Центральным банком РФ</a>.
+            Условия использования: информация предоставляется без каких-либо гарантий.
+        </div>
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
