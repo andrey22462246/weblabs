@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шкуропатов Андрей Александрович. Лабораторная 7</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png">
+    <link rel="icon" href="../favicon-32x32.png">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchWeatherData();
+        });
+        
+        function fetchWeatherData() {
+            const url = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia%2FBangkok';
+            
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ошибка сети: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayWeatherData(data);
+                })
+                .catch(error => {
+                    console.error('Ошибка при получении данных:', error);
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('error').textContent = 'Не удалось загрузить данные о погоде. Пожалуйста, попробуйте позже.';
+                    document.getElementById('error').style.display = 'block';
+                });
+        }
+        
+        function displayWeatherData(data) {
+            const times = data.hourly.time;
+            const temperatures = data.hourly.temperature_2m;
+            
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            
+            const todayIndices = [];
+            for (let i = 0; i < times.length; i++) {
+                if (times[i].startsWith(today)) {
+                    todayIndices.push(i);
+                }
+            }
+            
+            if (todayIndices.length === 0) {
+                throw new Error('Нет данных на сегодня');
+            }
+            
+            
+            let temp8 = null, temp12 = null, temp20 = null;
+            
+            for (const index of todayIndices) {
+                const timeStr = times[index].split('T')[1];
+                const hour = parseInt(timeStr.split(':')[0]);
+                
+                if (hour === 8) temp8 = temperatures[index];
+                if (hour === 12) temp12 = temperatures[index];
+                if (hour === 20) temp20 = temperatures[index];
+            }
+            
+            document.getElementById('temp-8').textContent = temp8 !== null ? temp8 + '°C' : '—';
+            document.getElementById('temp-12').textContent = temp12 !== null ? temp12 + '°C' : '—';
+            document.getElementById('temp-20').textContent = temp20 !== null ? temp20 + '°C' : '—';
+            
+            
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const todayFormatted = new Date(today).toLocaleDateString('ru-RU', dateOptions);
+            document.getElementById('date-info').textContent = 'На ' + todayFormatted;
+            document.getElementById('date-info').style.display = 'block';
+            
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('weather-info').style.display = 'flex';
+        }
+    </script>
+    <style>
+        .weather-container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 600px;
+            border: 2px solid #4a76a8;
+            border-radius: 10px;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .weather-container h2 {
+            color: #4a76a8;
+            margin-top: 0;
+            text-align: center;
+        }
+        
+        .weather-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .weather-time {
+            text-align: center;
+            padding: 15px;
+            margin: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 120px;
+        }
+        
+        .time {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .temperature {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a76a8;
+        }
+        
+        .loading {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .error {
+            text-align: center;
+            color: red;
+            font-weight: bold;
+        }
+        
+        .attribution {
+            margin-top: 30px;
+            font-size: 12px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .date-info {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 7
+    </header>
+    <main>
+        <div class="weather-container">
+            <h2>Прогноз погоды в Новосибирске</h2>
+            <div id="loading" class="loading">Загрузка данных о погоде...</div>
+            <div id="error" class="error" style="display: none;"></div>
+            <div id="date-info" class="date-info" style="display: none;"></div>
+            <div id="weather-info" class="weather-info" style="display: none;">
+                <div class="weather-time">
+                    <div class="time">8:00 утра</div>
+                    <div class="temperature" id="temp-8"></div>
+                </div>
+                <div class="weather-time">
+                    <div class="time">12:00 дня</div>
+                    <div class="temperature" id="temp-12"></div>
+                </div>
+                <div class="weather-time">
+                    <div class="time">20:00 вечера</div>
+                    <div class="temperature" id="temp-20"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="attribution">
+            Данные о погоде предоставлены <a href="https://open-meteo.com/" target="_blank">Open-Meteo.com</a>
+        </div>
+    </main>
+    <footer>
+        &copy; Шкуропатов Андрей, ФБИ-32, 2 курс, 2025
+    </footer>
+</body>
+</html>
